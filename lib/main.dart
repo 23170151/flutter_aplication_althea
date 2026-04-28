@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:flutter_application_althea/core/providers/user_provider.dart';
+import 'package:flutter_application_althea/core/router/app_router.dart';
+import 'package:flutter_application_althea/core/theme/app_theme.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('es_MX', null);
+  
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => UserProvider(),
+      child: const AltheaApp(),
+    ),
+  );
+}
+
+class AltheaApp extends StatefulWidget {
+  const AltheaApp({super.key});
+
+  @override
+  State<AltheaApp> createState() => _AltheaAppState();
+}
+
+class _AltheaAppState extends State<AltheaApp> {
+  late final _router = createRouter(context);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'ALTHEA Consultorios',
+      debugShowCheckedModeBanner: false,
+      theme: AltheaTheme.theme.copyWith(
+        textTheme: GoogleFonts.interTextTheme(AltheaTheme.theme.textTheme),
+      ),
+      routerConfig: _router,
+    );
+  }
+}
