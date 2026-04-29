@@ -14,23 +14,74 @@ class AdminDashboardScreen extends StatelessWidget {
     final user = context.watch<UserProvider>().user;
 
     final stats = [
-      {'icon': Icons.groups_rounded, 'value': '156', 'label': 'Total Pacientes', 'highlighted': false},
-      {'icon': Icons.medical_services_rounded, 'value': '12', 'label': 'Doctores Activos', 'highlighted': true},
-      {'icon': Icons.calendar_month_rounded, 'value': '89', 'label': 'Citas Este Mes', 'highlighted': false},
-      {'icon': Icons.description_rounded, 'value': '42', 'label': 'Nuevos Reportes', 'highlighted': false},
+      {
+        'icon': Icons.groups_rounded,
+        'value': '156',
+        'label': 'Total Pacientes',
+        'highlighted': false,
+      },
+      {
+        'icon': Icons.medical_services_rounded,
+        'value': '12',
+        'label': 'Doctores Activos',
+        'highlighted': true,
+      },
+      {
+        'icon': Icons.calendar_month_rounded,
+        'value': '89',
+        'label': 'Citas Este Mes',
+        'highlighted': false,
+      },
+      {
+        'icon': Icons.description_rounded,
+        'value': '42',
+        'label': 'Nuevos Reportes',
+        'highlighted': false,
+      },
     ];
 
     final modules = [
-      {'icon': Icons.account_tree_rounded, 'label': 'Sucursales', 'route': '/admin/branch-management'},
-      {'icon': Icons.calendar_today_rounded, 'label': 'Agenda General', 'route': null},
-      {'icon': Icons.person_add_rounded, 'label': 'Agregar Doctor', 'route': '/admin/add-doctor'},
-      {'icon': Icons.add_business_rounded, 'label': 'Agregar Sucursal', 'route': '/admin/add-branch'},
+      {
+        'icon': Icons.account_tree_rounded,
+        'label': 'Sucursales',
+        'route': '/admin/branch-management',
+      },
+      {
+        'icon': Icons.calendar_today_rounded,
+        'label': 'Agenda General',
+        'route': null,
+      },
+      {
+        'icon': Icons.person_add_rounded,
+        'label': 'Agregar Doctor',
+        'route': '/admin/add-doctor',
+      },
+      {
+        'icon': Icons.add_business_rounded,
+        'label': 'Agregar Sucursal',
+        'route': '/admin/add-branch',
+      },
     ];
 
     final activity = [
-      {'event': 'Nueva cita registrada', 'time': 'Hace 5 min', 'icon': Icons.calendar_today_rounded, 'gold': false},
-      {'event': 'Nuevo paciente registrado', 'time': 'Hace 15 min', 'icon': Icons.person_add_rounded, 'gold': false},
-      {'event': 'Nuevo doctor registrado', 'time': 'Hace 2 horas', 'icon': Icons.medical_services_rounded, 'gold': true},
+      {
+        'event': 'Nueva cita registrada',
+        'time': 'Hace 5 min',
+        'icon': Icons.calendar_today_rounded,
+        'gold': false,
+      },
+      {
+        'event': 'Nuevo paciente registrado',
+        'time': 'Hace 15 min',
+        'icon': Icons.person_add_rounded,
+        'gold': false,
+      },
+      {
+        'event': 'Nuevo doctor registrado',
+        'time': 'Hace 2 horas',
+        'icon': Icons.medical_services_rounded,
+        'gold': true,
+      },
     ];
 
     return Scaffold(
@@ -42,40 +93,85 @@ class AdminDashboardScreen extends StatelessWidget {
               clipBehavior: Clip.none,
               alignment: Alignment.bottomCenter,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 44),
-                  child: AltheaHeader(
-                    roleLabel: 'ADMINISTRACIÓN',
-                    userName: user?.name ?? 'Administrador',
-                    subtitle: 'Panel de Control',
-                    onLogout: () { context.read<UserProvider>().logout(); context.go('/'); },
-                  ),
+                AltheaHeader(
+                  roleLabel: 'ADMINISTRACIÓN',
+                  userName: user?.name ?? 'Administrador',
+                  subtitle: 'Panel de Control',
+                  bottomPadding: 30,
+                  onLogout: () {
+                    context.read<UserProvider>().logout();
+                    context.go('/');
+                  },
                 ),
                 Positioned(
-                  bottom: 0,
+                  bottom: -300,
                   left: 20,
                   right: 20,
                   child: Container(
                     padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(color: Colors.white.withOpacity(0.85), borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.white), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 20, offset: const Offset(0, 8))]),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.85),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: Colors.white),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.08),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
                     child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.6, crossAxisSpacing: 12, mainAxisSpacing: 12),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.6,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                          ),
                       itemCount: stats.length,
                       itemBuilder: (_, i) {
                         final s = stats[i];
                         final isGold = s['highlighted'] as bool;
                         return Container(
                           padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(color: AltheaColors.lightCard, borderRadius: BorderRadius.circular(16), border: Border.all(color: AltheaColors.borderLight)),
+                          decoration: BoxDecoration(
+                            color: AltheaColors.lightCard,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: AltheaColors.borderLight),
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(s['icon'] as IconData, color: isGold ? AltheaColors.gold : AltheaColors.navy, size: 22),
+                              Icon(
+                                s['icon'] as IconData,
+                                color: isGold
+                                    ? AltheaColors.gold
+                                    : AltheaColors.navy,
+                                size: 22,
+                              ),
                               const SizedBox(height: 6),
-                              Text(s['value'] as String, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: isGold ? AltheaColors.gold : AltheaColors.navy)),
-                              Text(s['label'] as String, textAlign: TextAlign.center, style: const TextStyle(fontSize: 11, color: AltheaColors.textSecondary, fontWeight: FontWeight.w600)),
+                              Text(
+                                s['value'] as String,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w900,
+                                  color: isGold
+                                      ? AltheaColors.gold
+                                      : AltheaColors.navy,
+                                ),
+                              ),
+                              Text(
+                                s['label'] as String,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  color: AltheaColors.textSecondary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -85,31 +181,69 @@ class AdminDashboardScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 300),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Modules
-                  const Text('Módulos', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AltheaColors.navy)),
+                  const Text(
+                    'Módulos',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: AltheaColors.navy,
+                    ),
+                  ),
                   const SizedBox(height: 14),
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.5, crossAxisSpacing: 12, mainAxisSpacing: 12),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1.5,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                        ),
                     itemCount: modules.length,
                     itemBuilder: (_, i) {
                       final m = modules[i];
                       return GestureDetector(
-                        onTap: m['route'] != null ? () => context.go(m['route'] as String) : null,
+                        onTap: m['route'] != null
+                            ? () => context.go(m['route'] as String)
+                            : null,
                         child: Container(
-                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18), border: Border.all(color: AltheaColors.borderLight)),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(18),
+                            border: Border.all(color: AltheaColors.borderLight),
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AltheaColors.lightCard, borderRadius: BorderRadius.circular(12)), child: Icon(m['icon'] as IconData, color: AltheaColors.navy, size: 24)),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: AltheaColors.lightCard,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Icon(
+                                  m['icon'] as IconData,
+                                  color: AltheaColors.navy,
+                                  size: 24,
+                                ),
+                              ),
                               const SizedBox(height: 8),
-                              Text(m['label'] as String, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AltheaColors.navy)),
+                              Text(
+                                m['label'] as String,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: AltheaColors.navy,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -122,32 +256,85 @@ class AdminDashboardScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Actividad', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AltheaColors.navy)),
-                      const Text('Ver todo', style: TextStyle(color: AltheaColors.gold, fontSize: 14, fontWeight: FontWeight.w600)),
+                      const Text(
+                        'Actividad',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: AltheaColors.navy,
+                        ),
+                      ),
+                      const Text(
+                        'Ver todo',
+                        style: TextStyle(
+                          color: AltheaColors.gold,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 14),
                   Container(
                     padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), border: Border.all(color: AltheaColors.borderLight)),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: AltheaColors.borderLight),
+                    ),
                     child: Column(
-                      children: activity.map((item) => Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 40, height: 40,
-                              decoration: BoxDecoration(color: (item['gold'] as bool) ? AltheaColors.gold.withOpacity(0.12) : AltheaColors.navy.withOpacity(0.08), borderRadius: BorderRadius.circular(12)),
-                              child: Icon(item['icon'] as IconData, color: (item['gold'] as bool) ? AltheaColors.gold : AltheaColors.navy, size: 20),
+                      children: activity
+                          .map(
+                            (item) => Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: (item['gold'] as bool)
+                                          ? AltheaColors.gold.withOpacity(0.12)
+                                          : AltheaColors.navy.withOpacity(0.08),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Icon(
+                                      item['icon'] as IconData,
+                                      color: (item['gold'] as bool)
+                                          ? AltheaColors.gold
+                                          : AltheaColors.navy,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 14),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item['event'] as String,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: AltheaColors.navy,
+                                          ),
+                                        ),
+                                        Text(
+                                          item['time'] as String,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: AltheaColors.textSecondary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            const SizedBox(width: 14),
-                            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Text(item['event'] as String, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AltheaColors.navy)),
-                              Text(item['time'] as String, style: const TextStyle(fontSize: 12, color: AltheaColors.textSecondary)),
-                            ])),
-                          ],
-                        ),
-                      )).toList(),
+                          )
+                          .toList(),
                     ),
                   ),
                 ],

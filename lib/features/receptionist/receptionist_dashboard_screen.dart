@@ -14,10 +14,34 @@ class ReceptionistDashboardScreen extends StatelessWidget {
     final user = context.watch<UserProvider>().user;
 
     final activity = [
-      {'action': 'Cita agendada', 'patient': 'Juan Pérez', 'time': 'Hace 10 min', 'icon': Icons.calendar_today_rounded, 'color': AltheaColors.navy},
-      {'action': 'Pago registrado', 'patient': 'María López', 'time': 'Hace 25 min', 'icon': Icons.receipt_rounded, 'color': Color(0xFF28A745)},
-      {'action': 'Paciente registrado', 'patient': 'Carlos Gómez', 'time': 'Hace 1 hora', 'icon': Icons.person_add_rounded, 'color': AltheaColors.gold},
-      {'action': 'Cita cancelada', 'patient': 'Ana Torres', 'time': 'Hace 2 horas', 'icon': Icons.cancel_rounded, 'color': Color(0xFFD32F2F)},
+      {
+        'action': 'Cita agendada',
+        'patient': 'Juan Pérez',
+        'time': 'Hace 10 min',
+        'icon': Icons.calendar_today_rounded,
+        'color': AltheaColors.navy,
+      },
+      {
+        'action': 'Pago registrado',
+        'patient': 'María López',
+        'time': 'Hace 25 min',
+        'icon': Icons.receipt_rounded,
+        'color': Color(0xFF28A745),
+      },
+      {
+        'action': 'Paciente registrado',
+        'patient': 'Carlos Gómez',
+        'time': 'Hace 1 hora',
+        'icon': Icons.person_add_rounded,
+        'color': AltheaColors.gold,
+      },
+      {
+        'action': 'Cita cancelada',
+        'patient': 'Ana Torres',
+        'time': 'Hace 2 horas',
+        'icon': Icons.cancel_rounded,
+        'color': Color(0xFFD32F2F),
+      },
     ];
 
     return Scaffold(
@@ -29,55 +53,120 @@ class ReceptionistDashboardScreen extends StatelessWidget {
               clipBehavior: Clip.none,
               alignment: Alignment.bottomCenter,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 44),
-                  child: AltheaHeader(
-                    roleLabel: 'RECEPCIÓN',
-                    userName: user?.name ?? 'Recepcionista',
-                    subtitle: 'Bienvenida,',
-                    onLogout: () { context.read<UserProvider>().logout(); context.go('/'); },
-                  ),
+                AltheaHeader(
+                  roleLabel: 'RECEPCIÓN',
+                  userName: user?.name ?? 'Recepcionista',
+                  subtitle: 'Bienvenida,',
+                  bottomPadding: 30,
+                  onLogout: () {
+                    context.read<UserProvider>().logout();
+                    context.go('/');
+                  },
                 ),
                 Positioned(
-                  bottom: 0,
+                  bottom: -280,
                   left: 20,
                   right: 20,
                   child: Container(
                     padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(color: Colors.white.withOpacity(0.85), borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.white), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 20, offset: const Offset(0, 8))]),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.85),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: Colors.white),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.08),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
                     child: GridView(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.8, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.8,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
                       children: [
-                        _ReceptionBtn(icon: Icons.search_rounded, label: 'Buscar Paciente', primary: true, onTap: () => context.go('/receptionist/search-patient')),
-                        _ReceptionBtn(icon: Icons.person_add_rounded, label: 'Nuevo Paciente', dark: true, onTap: () {}),
-                        _ReceptionBtn(icon: Icons.calendar_today_rounded, label: 'Agendar Cita', onTap: () => context.go('/receptionist/book-patient')),
-                        _ReceptionBtn(icon: Icons.receipt_long_rounded, label: 'Cobros y Facturas', onTap: () {}),
+                        _ReceptionBtn(
+                          icon: Icons.search_rounded,
+                          label: 'Buscar Paciente',
+                          primary: true,
+                          onTap: () =>
+                              context.go('/receptionist/search-patient'),
+                        ),
+                        _ReceptionBtn(
+                          icon: Icons.person_add_rounded,
+                          label: 'Nuevo Paciente',
+                          dark: true,
+                          onTap: () {},
+                        ),
+                        _ReceptionBtn(
+                          icon: Icons.calendar_today_rounded,
+                          label: 'Agendar Cita',
+                          onTap: () => context.go('/receptionist/book-patient'),
+                        ),
+                        _ReceptionBtn(
+                          icon: Icons.receipt_long_rounded,
+                          label: 'Cobros y Facturas',
+                          onTap: () {},
+                        ),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 280),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Daily summary
-                  const Text('Resumen del Día', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AltheaColors.navy)),
+                  const Text(
+                    'Resumen del Día',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: AltheaColors.navy,
+                    ),
+                  ),
                   const SizedBox(height: 14),
                   Container(
                     padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(gradient: const LinearGradient(colors: [AltheaColors.navy, AltheaColors.navyMid], begin: Alignment.topLeft, end: Alignment.bottomRight), borderRadius: BorderRadius.circular(22)),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [AltheaColors.navy, AltheaColors.navyMid],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(22),
+                    ),
                     child: Column(
                       children: [
-                        _SummaryRow(icon: Icons.calendar_today_rounded, label: 'Citas Hoy', value: '42'),
+                        _SummaryRow(
+                          icon: Icons.calendar_today_rounded,
+                          label: 'Citas Hoy',
+                          value: '42',
+                        ),
                         const SizedBox(height: 12),
-                        _SummaryRow(icon: Icons.access_time_rounded, label: 'Pendientes', value: '15'),
+                        _SummaryRow(
+                          icon: Icons.access_time_rounded,
+                          label: 'Pendientes',
+                          value: '15',
+                        ),
                         const SizedBox(height: 12),
-                        _SummaryRow(icon: Icons.person_add_rounded, label: 'Nuevos Pacientes', value: '8', last: true),
+                        _SummaryRow(
+                          icon: Icons.person_add_rounded,
+                          label: 'Nuevos Pacientes',
+                          value: '8',
+                          last: true,
+                        ),
                       ],
                     ),
                   ),
@@ -87,29 +176,88 @@ class ReceptionistDashboardScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Actividad Reciente', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AltheaColors.navy)),
-                      const Text('Ver todo', style: TextStyle(color: AltheaColors.gold, fontSize: 14, fontWeight: FontWeight.w600)),
+                      const Text(
+                        'Actividad Reciente',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: AltheaColors.navy,
+                        ),
+                      ),
+                      const Text(
+                        'Ver todo',
+                        style: TextStyle(
+                          color: AltheaColors.gold,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 14),
-                  ...activity.map((item) => Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Container(
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: AltheaColors.borderLight)),
-                      child: Row(
-                        children: [
-                          Container(width: 44, height: 44, decoration: BoxDecoration(color: (item['color'] as Color).withOpacity(0.12), borderRadius: BorderRadius.circular(12)), child: Icon(item['icon'] as IconData, color: item['color'] as Color, size: 22)),
-                          const SizedBox(width: 12),
-                          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                            Text(item['action'] as String, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AltheaColors.navy)),
-                            Text(item['patient'] as String, style: const TextStyle(fontSize: 12, color: AltheaColors.textSecondary)),
-                          ])),
-                          Text(item['time'] as String, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AltheaColors.textSecondary)),
-                        ],
+                  ...activity.map(
+                    (item) => Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: AltheaColors.borderLight),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: (item['color'] as Color).withOpacity(
+                                  0.12,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                item['icon'] as IconData,
+                                color: item['color'] as Color,
+                                size: 22,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item['action'] as String,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: AltheaColors.navy,
+                                    ),
+                                  ),
+                                  Text(
+                                    item['patient'] as String,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: AltheaColors.textSecondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              item['time'] as String,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: AltheaColors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  )),
+                  ),
                 ],
               ),
             ),
@@ -126,7 +274,13 @@ class _ReceptionBtn extends StatelessWidget {
   final bool primary;
   final bool dark;
   final VoidCallback onTap;
-  const _ReceptionBtn({required this.icon, required this.label, this.primary = false, this.dark = false, required this.onTap});
+  const _ReceptionBtn({
+    required this.icon,
+    required this.label,
+    this.primary = false,
+    this.dark = false,
+    required this.onTap,
+  });
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -134,20 +288,42 @@ class _ReceptionBtn extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           gradient: primary
-              ? const LinearGradient(colors: [AltheaColors.gold, AltheaColors.goldLight])
+              ? const LinearGradient(
+                  colors: [AltheaColors.gold, AltheaColors.goldLight],
+                )
               : dark
-                  ? const LinearGradient(colors: [AltheaColors.navy, AltheaColors.navyMid])
-                  : null,
+              ? const LinearGradient(
+                  colors: [AltheaColors.navy, AltheaColors.navyMid],
+                )
+              : null,
           color: (primary || dark) ? null : Colors.white,
           borderRadius: BorderRadius.circular(16),
-          border: (primary || dark) ? null : Border.all(color: AltheaColors.borderLight),
+          border: (primary || dark)
+              ? null
+              : Border.all(color: AltheaColors.borderLight),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: (primary || dark) ? (primary ? AltheaColors.navy : Colors.white) : AltheaColors.navy, size: 26),
+            Icon(
+              icon,
+              color: (primary || dark)
+                  ? (primary ? AltheaColors.navy : Colors.white)
+                  : AltheaColors.navy,
+              size: 26,
+            ),
             const SizedBox(height: 6),
-            Text(label, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: (primary || dark) ? (primary ? AltheaColors.navy : Colors.white) : AltheaColors.navy)),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: (primary || dark)
+                    ? (primary ? AltheaColors.navy : Colors.white)
+                    : AltheaColors.navy,
+              ),
+            ),
           ],
         ),
       ),
@@ -159,7 +335,12 @@ class _SummaryRow extends StatelessWidget {
   final IconData icon;
   final String label, value;
   final bool last;
-  const _SummaryRow({required this.icon, required this.label, required this.value, this.last = false});
+  const _SummaryRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.last = false,
+  });
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -167,15 +348,41 @@ class _SummaryRow extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(children: [
-              Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: Colors.white.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: Icon(icon, color: AltheaColors.gold, size: 18)),
-              const SizedBox(width: 10),
-              Text(label, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
-            ]),
-            Text(value, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900)),
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(icon, color: AltheaColors.gold, size: 18),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              value,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
           ],
         ),
-        if (!last) ...[const SizedBox(height: 12), Divider(color: Colors.white.withOpacity(0.1))],
+        if (!last) ...[
+          const SizedBox(height: 12),
+          Divider(color: Colors.white.withOpacity(0.1)),
+        ],
       ],
     );
   }

@@ -9,6 +9,7 @@ class AltheaHeader extends StatelessWidget {
   final VoidCallback onLogout;
   final VoidCallback? onSettings;
   final VoidCallback? onNotifications;
+  final double bottomPadding;
 
   const AltheaHeader({
     super.key,
@@ -18,6 +19,7 @@ class AltheaHeader extends StatelessWidget {
     required this.onLogout,
     this.onSettings,
     this.onNotifications,
+    this.bottomPadding = 48,
   });
 
   @override
@@ -65,7 +67,7 @@ class AltheaHeader extends StatelessWidget {
           SafeArea(
             bottom: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 16, 24, 48),
+              padding: EdgeInsets.fromLTRB(24, 16, 24, bottomPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

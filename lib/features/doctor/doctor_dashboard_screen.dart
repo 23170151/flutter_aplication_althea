@@ -28,17 +28,15 @@ class DoctorDashboardScreen extends StatelessWidget {
               clipBehavior: Clip.none,
               alignment: Alignment.bottomCenter,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 44),
-                  child: AltheaHeader(
-                    roleLabel: 'DOCTOR',
-                    userName: user?.name ?? 'Doctor',
-                    subtitle: 'Bienvenido, Dr(a).',
-                    onLogout: () { context.read<UserProvider>().logout(); context.go('/'); },
-                  ),
+                AltheaHeader(
+                  roleLabel: 'DOCTOR',
+                  userName: user?.name ?? 'Doctor',
+                  subtitle: 'Bienvenido, Dr(a).',
+                  bottomPadding: 30,
+                  onLogout: () { context.read<UserProvider>().logout(); context.go('/'); },
                 ),
                 Positioned(
-                  bottom: 0,
+                  bottom: -150,
                   left: 20,
                   right: 20,
                   child: Container(
@@ -62,6 +60,7 @@ class DoctorDashboardScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 150),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
               child: Column(
