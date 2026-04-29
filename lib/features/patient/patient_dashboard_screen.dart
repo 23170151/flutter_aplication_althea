@@ -37,22 +37,26 @@ class PatientDashboardScreen extends StatelessWidget {
         child: Column(
           children: [
             Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.topCenter,
               children: [
-                AltheaHeader(
-                  roleLabel: 'PACIENTE',
-                  userName: user?.name ?? 'Paciente',
-                  subtitle: 'Bienvenido de nuevo,',
-                  bottomPadding: 30,
-                  onLogout: () {
-                    context.read<UserProvider>().logout();
-                    context.go('/');
-                  },
-                  onSettings: () => context.go('/patient/profile'),
+                Column(
+                  children: [
+                    AltheaHeader(
+                      roleLabel: 'PACIENTE',
+                      userName: user?.name ?? 'Paciente',
+                      subtitle: 'Bienvenido de nuevo,',
+                      bottomPadding: 30,
+                      onLogout: () {
+                        context.read<UserProvider>().logout();
+                        context.go('/');
+                      },
+                      onSettings: () => context.go('/patient/profile'),
+                    ),
+                    const SizedBox(height: 150),
+                  ],
                 ),
                 Positioned(
-                  bottom: -150,
+                  bottom: 0,
                   left: 20,
                   right: 20,
                   child: _QuickActionsCard(
@@ -78,7 +82,6 @@ class PatientDashboardScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 150),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
               child: Column(

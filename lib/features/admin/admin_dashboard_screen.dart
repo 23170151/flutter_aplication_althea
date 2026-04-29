@@ -90,21 +90,25 @@ class AdminDashboardScreen extends StatelessWidget {
         child: Column(
           children: [
             Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.topCenter,
               children: [
-                AltheaHeader(
-                  roleLabel: 'ADMINISTRACIÓN',
-                  userName: user?.name ?? 'Administrador',
-                  subtitle: 'Panel de Control',
-                  bottomPadding: 30,
-                  onLogout: () {
-                    context.read<UserProvider>().logout();
-                    context.go('/');
-                  },
+                Column(
+                  children: [
+                    AltheaHeader(
+                      roleLabel: 'ADMINISTRACIÓN',
+                      userName: user?.name ?? 'Administrador',
+                      subtitle: 'Panel de Control',
+                      bottomPadding: 30,
+                      onLogout: () {
+                        context.read<UserProvider>().logout();
+                        context.go('/');
+                      },
+                    ),
+                    const SizedBox(height: 300),
+                  ],
                 ),
                 Positioned(
-                  bottom: -300,
+                  bottom: 0,
                   left: 20,
                   right: 20,
                   child: Container(
@@ -181,7 +185,6 @@ class AdminDashboardScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 300),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
               child: Column(

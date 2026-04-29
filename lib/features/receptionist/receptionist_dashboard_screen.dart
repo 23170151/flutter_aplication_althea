@@ -50,21 +50,25 @@ class ReceptionistDashboardScreen extends StatelessWidget {
         child: Column(
           children: [
             Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.topCenter,
               children: [
-                AltheaHeader(
-                  roleLabel: 'RECEPCIÓN',
-                  userName: user?.name ?? 'Recepcionista',
-                  subtitle: 'Bienvenida,',
-                  bottomPadding: 30,
-                  onLogout: () {
-                    context.read<UserProvider>().logout();
-                    context.go('/');
-                  },
+                Column(
+                  children: [
+                    AltheaHeader(
+                      roleLabel: 'RECEPCIÓN',
+                      userName: user?.name ?? 'Recepcionista',
+                      subtitle: 'Bienvenida,',
+                      bottomPadding: 30,
+                      onLogout: () {
+                        context.read<UserProvider>().logout();
+                        context.go('/');
+                      },
+                    ),
+                    const SizedBox(height: 280),
+                  ],
                 ),
                 Positioned(
-                  bottom: -280,
+                  bottom: 0,
                   left: 20,
                   right: 20,
                   child: Container(
@@ -121,7 +125,6 @@ class ReceptionistDashboardScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 280),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
               child: Column(
