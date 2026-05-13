@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen>
           // Animated background blobs
           AnimatedBuilder(
             animation: _bgAnim1,
-            builder: (_, __) => Positioned(
+            builder: (_, _) => Positioned(
               top: -100,
               left: -100,
               child: Transform.scale(
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen>
           ),
           AnimatedBuilder(
             animation: _bgAnim2,
-            builder: (_, __) => Positioned(
+            builder: (_, _) => Positioned(
               bottom: -100,
               right: -100,
               child: Transform.scale(
@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen>
                               ),
                               child: Image.asset(
                                 'assets/images/logoAlthea.png',
-                                errorBuilder: (_, __, ___) => const Icon(
+                                errorBuilder: (_, _, _) => const Icon(
                                   Icons.local_hospital_rounded,
                                   color: AltheaColors.gold,
                                   size: 36,

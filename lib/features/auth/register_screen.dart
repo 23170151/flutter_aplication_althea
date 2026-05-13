@@ -18,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   final _nameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _phoneCtrl = TextEditingController();
+  final _birthDateCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
   bool _showPassword = false;
   bool _isLoading = false;
@@ -51,6 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     _nameCtrl.dispose();
     _emailCtrl.dispose();
     _phoneCtrl.dispose();
+    _birthDateCtrl.dispose();
     _passwordCtrl.dispose();
     super.dispose();
   }
@@ -68,6 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         phone: _phoneCtrl.text.trim(),
         email: _emailCtrl.text.trim(),
         password: _passwordCtrl.text,
+        birthDate: _birthDateCtrl.text.trim(),
       );
 
       if (!mounted) return;
@@ -160,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                           ),
                           child: Image.asset(
                             'assets/images/logoAlthea.png',
-                            errorBuilder: (_, __, ___) => const Icon(
+                            errorBuilder: (_, _, _) => const Icon(
                               Icons.local_hospital_rounded,
                               color: AltheaColors.gold,
                               size: 30,
@@ -280,19 +283,58 @@ class _RegisterScreenState extends State<RegisterScreen>
                                               Icons.phone_outlined,
                                               keyboard: TextInputType.phone,
                                               validator: (v) {
-                                                if (v == null || v.isEmpty)
+                                                if (v == null || v.isEmpty) {
                                                   return 'Campo requerido';
+                                                }
                                                 final digitsOnly = v.replaceAll(
                                                   RegExp(r'\D'),
                                                   '',
                                                 );
-                                                if (digitsOnly.length != 10)
+                                                if (digitsOnly.length != 10) {
                                                   return 'Debe tener exactamente 10 dígitos';
+                                                }
                                                 return null;
                                               },
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      const SizedBox(height: 14),
+                                      _buildField(
+                                        _birthDateCtrl,
+                                        'Fecha de nacimiento',
+                                        'DD/MM/AAAA',
+                                        Icons.cake_outlined,
+                                        keyboard: TextInputType.datetime,
+                                        validator: (v) {
+                                          if (v == null || v.isEmpty) return 'Campo requerido';
+                                          final regex = RegExp(r'^(\d{2})/(\d{2})/(\d{4})$');
+                                          final match = regex.firstMatch(v);
+                                          if (match == null) {
+                                            return 'Usa el formato DD/MM/AAAA';
+                                          }
+                                          final day = int.tryParse(match.group(1)!);
+                                          final month = int.tryParse(match.group(2)!);
+                                          final year = int.tryParse(match.group(3)!);
+                                          
+                                          if (month == null || month < 1 || month > 12) {
+                                            return 'Mes inválido';
+                                          }
+                                          
+                                          int maxDays = 31;
+                                          if ([4, 6, 9, 11].contains(month)) {
+                                            maxDays = 30;
+                                          } else if (month == 2) {
+                                            final isLeapYear = (year! % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+                                            maxDays = isLeapYear ? 29 : 28;
+                                          }
+                                          
+                                          if (day == null || day < 1 || day > maxDays) {
+                                            return 'Día inválido';
+                                          }
+                                          
+                                          return null;
+                                        },
                                       ),
                                       const SizedBox(height: 14),
                                       _buildPasswordField(),

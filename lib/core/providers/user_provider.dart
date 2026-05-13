@@ -66,6 +66,9 @@ class UserProvider extends ChangeNotifier {
       id: userData['id'],
       name: userData['nombre_completo'],
       email: userData['correo'],
+      phone: userData['telefono'],
+      birthDate: userData['fecha_nacimiento'], // Puede ser null
+      bloodType: userData['tipo_sangre'],      // Puede ser null
       role: userRole,
     );
 
@@ -78,6 +81,7 @@ class UserProvider extends ChangeNotifier {
     required String phone,
     String? email,
     required String password,
+    String? birthDate,
   }) async {
     final supabase = Supabase.instance.client;
 
@@ -113,6 +117,7 @@ class UserProvider extends ChangeNotifier {
       'nombre_completo': name.trim(),
       'correo': finalEmail,
       'telefono': phone.trim(),
+      'fecha_nacimiento': birthDate?.trim(),
       'rol': 'paciente',
     });
 

@@ -22,17 +22,17 @@ GoRouter createRouter(BuildContext context) {
   return GoRouter(
     initialLocation: '/',
     routes: [
-      GoRoute(path: '/', builder: (_, __) => const LoginScreen()),
-      GoRoute(path: '/register', builder: (_, __) => const RegisterScreen()),
+      GoRoute(path: '/', builder: (_, _) => const LoginScreen()),
+      GoRoute(path: '/register', builder: (_, _) => const RegisterScreen()),
 
       // Patient
       GoRoute(
         path: '/patient/dashboard',
-        builder: (_, __) => const PatientDashboardScreen(),
+        builder: (_, _) => const PatientDashboardScreen(),
       ),
       GoRoute(
         path: '/patient/doctors',
-        builder: (_, __) => const DoctorListScreen(),
+        builder: (_, _) => const DoctorListScreen(),
       ),
       GoRoute(
         path: '/patient/book-appointment/:doctorId',
@@ -42,25 +42,25 @@ GoRouter createRouter(BuildContext context) {
       ),
       GoRoute(
         path: '/patient/appointments',
-        builder: (_, __) => const MyAppointmentsScreen(),
+        builder: (_, _) => const MyAppointmentsScreen(),
       ),
       GoRoute(
         path: '/patient/profile',
-        builder: (_, __) => const PatientProfileScreen(),
+        builder: (_, _) => const PatientProfileScreen(),
       ),
 
       // Doctor
       GoRoute(
         path: '/doctor/dashboard',
-        builder: (_, __) => const DoctorDashboardScreen(),
+        builder: (_, _) => const DoctorDashboardScreen(),
       ),
       GoRoute(
         path: '/doctor/schedule',
-        builder: (_, __) => const DoctorScheduleScreen(),
+        builder: (_, _) => const DoctorScheduleScreen(),
       ),
       GoRoute(
         path: '/doctor/patients',
-        builder: (_, __) => const DoctorPatientsScreen(),
+        builder: (_, _) => const DoctorPatientsScreen(),
       ),
       GoRoute(
         path: '/doctor/medical-record',
@@ -72,33 +72,33 @@ GoRouter createRouter(BuildContext context) {
       // Receptionist
       GoRoute(
         path: '/receptionist/dashboard',
-        builder: (_, __) => const ReceptionistDashboardScreen(),
+        builder: (_, _) => const ReceptionistDashboardScreen(),
       ),
       GoRoute(
         path: '/receptionist/search-patient',
-        builder: (_, __) => const SearchPatientScreen(),
+        builder: (_, _) => const SearchPatientScreen(),
       ),
       GoRoute(
         path: '/receptionist/book-patient',
-        builder: (_, __) => const BookForPatientScreen(),
+        builder: (_, _) => const BookForPatientScreen(),
       ),
 
       // Admin
       GoRoute(
         path: '/admin/dashboard',
-        builder: (_, __) => const AdminDashboardScreen(),
+        builder: (_, _) => const AdminDashboardScreen(),
       ),
       GoRoute(
         path: '/admin/branch-management',
-        builder: (_, __) => const BranchManagementScreen(),
+        builder: (_, _) => const BranchManagementScreen(),
       ),
       GoRoute(
         path: '/admin/add-doctor',
-        builder: (_, __) => const AddDoctorScreen(),
+        builder: (_, _) => const AddDoctorScreen(),
       ),
       GoRoute(
         path: '/admin/add-branch',
-        builder: (_, __) => const AddBranchScreen(),
+        builder: (_, _) => const AddBranchScreen(),
       ),
     ],
   );
