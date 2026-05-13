@@ -83,13 +83,15 @@ class AltheaHeader extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: Colors.white.withOpacity(0.2)),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.2),
+                              ),
                             ),
                             child: Image.asset(
                               'assets/images/logoAlthea.png',
                               width: 32,
                               height: 32,
-                              errorBuilder: (_, __, ___) => const Icon(
+                              errorBuilder: (_, _, _) => const Icon(
                                 Icons.local_hospital_rounded,
                                 color: AltheaColors.gold,
                                 size: 28,

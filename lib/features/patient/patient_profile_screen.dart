@@ -58,9 +58,9 @@ class PatientProfileScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   _InfoRow(icon: Icons.person_outline_rounded, label: 'Nombre', value: user?.name ?? ''),
                   _InfoRow(icon: Icons.mail_outline_rounded, label: 'Correo', value: user?.email ?? ''),
-                  _InfoRow(icon: Icons.phone_outlined, label: 'Teléfono', value: '+52 667 123 4567'),
-                  _InfoRow(icon: Icons.cake_outlined, label: 'Nacimiento', value: '15 de Enero, 2000'),
-                  _InfoRow(icon: Icons.bloodtype_outlined, label: 'Tipo de Sangre', value: 'O+'),
+                  _InfoRow(icon: Icons.phone_outlined, label: 'Teléfono', value: user?.phone ?? 'No especificado'),
+                  _InfoRow(icon: Icons.cake_outlined, label: 'Nacimiento', value: user?.birthDate ?? 'No especificada'),
+                  _InfoRow(icon: Icons.bloodtype_outlined, label: 'Tipo de Sangre', value: user?.bloodType ?? 'No especificado'),
                   const SizedBox(height: 28),
                   SizedBox(
                     width: double.infinity,

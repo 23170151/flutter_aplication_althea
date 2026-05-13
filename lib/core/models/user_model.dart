@@ -4,12 +4,18 @@ class UserModel {
   final String id;
   final String name;
   final String email;
+  final String? phone;
+  final String? birthDate;
+  final String? bloodType;
   final UserRole role;
 
   const UserModel({
     required this.id,
     required this.name,
     required this.email,
+    this.phone,
+    this.birthDate,
+    this.bloodType,
     required this.role,
   });
 
